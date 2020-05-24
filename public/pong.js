@@ -34,7 +34,7 @@ function mapearTeclasMovimento(jogador, teclaAcima, teclaAbaixo) {
 }
 
 function criarJogador(posicao) {
-    const jogador = {
+    return {
         largura: 30,
         altura: 120,
         linha: 10,
@@ -43,31 +43,30 @@ function criarJogador(posicao) {
         movimentando: 0,
         desenhar() {
             contexto.beginPath();
-            contexto.rect(jogador.coluna, jogador.linha, jogador.largura, jogador.altura);
+            contexto.rect(this.coluna, this.linha, this.largura, this.altura);
             contexto.fillStyle = 'white';
             contexto.fill();
 
-            if (jogador.movimentando < 0)
-                jogador.movimentarAcima()
-            else if (jogador.movimentando > 0)
-                jogador.movimentarAbaixo()
+            if (this.movimentando < 0)
+                this.movimentarAcima()
+            else if (this.movimentando > 0)
+                this.movimentarAbaixo()
         },
         movimentarAcima() {
-            if (jogador.linha > campo.margemSuperior)
-                jogador.linha = jogador.linha - jogador.velocidadeMovimento;
+            if (this.linha > campo.margemSuperior)
+                this.linha = this.linha - this.velocidadeMovimento;
         },
         movimentarAbaixo() {
-            if (jogador.linha < campo.margemInferior - jogador.altura)
-                jogador.linha = jogador.linha + jogador.velocidadeMovimento;
+            if (this.linha < campo.margemInferior - this.altura)
+                this.linha = this.linha + this.velocidadeMovimento;
         },
         movimentar(movimentar) {
-            jogador.movimentando = movimentar;
+            this.movimentando = movimentar;
         },
         pararMovimento() {
-            jogador.movimentando = movimento.parar;
+            this.movimentando = movimento.parar;
         }
     };
-    return jogador;
 }
 
 function criarBolinha(posicao) {
