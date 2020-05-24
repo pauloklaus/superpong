@@ -73,20 +73,31 @@ function criarBolinha(posicao) {
     largura = 30;
     altura = 30;
 
-    const bolinha = {
+    return {
+        velocidade: 5,
         largura: largura,
         altura: altura,
         linha: (canvas.height / 2) - (altura / 2),
         coluna: (canvas.width / 2) - (largura / 2),
+        movimentarLinha: 1,
+        movimentarColuna: 1,
         desenhar() {
             contexto.beginPath();
-            contexto.rect(bolinha.coluna, bolinha.linha, bolinha.largura, bolinha.altura);
+            contexto.rect(this.coluna, this.linha, this.largura, this.altura);
             contexto.fillStyle = 'white';
             contexto.fill();
         },
+        atualizar() {
+            if (this.linha <= campo.margemSuperior || this.linha >= (campo.margemInferior - this.altura))
+                this.movimentarLinha *= -1;
 
+            if (this.coluna <= campo.margemEsquerda || this.coluna >= campo.margemDireita - this.largura)
+                this.movimentarColuna *= -1
+
+            this.linha += (this.movimentarLinha * this.velocidade);
+            this.coluna += (this.movimentarColuna * this.velocidade);
+        }
     };
-    return bolinha;
 }
 
 const telas = {
@@ -111,6 +122,7 @@ const telas = {
             objetosDaTela.bolinha.desenhar();
         },
         atualizar() {
+            objetosDaTela.bolinha.atualizar();
         }
     }
 }
