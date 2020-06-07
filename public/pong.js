@@ -88,7 +88,7 @@ function criarJogador(posicao) {
             this.movimentando = movimento.parar;
         },
         defendeuBolinha(linha) {
-            return (linha >= this.linha && linha <= this.linha + this.altura);
+            return (linha + dimensaoBolinha.altura >= this.linha && linha <= this.linha + this.altura);
         }
     };
 }
